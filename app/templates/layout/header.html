@@ -1,0 +1,60 @@
+<header class="bg-teal-700 text-white sticky top-0 z-50">
+
+    <section class="max-w-4xl mx-auto p-4 flex justify-between items-center">
+
+        <h1 class="text-3xl font-medium">
+            <a href="#hero">🚀 {{ title }}</a>
+        </h1>
+
+        <button id="hamburger-button" class="text-3xl md:hidden cursor-pointer relative w-8 h-8">
+            <div class="absolute top-4 -mt-0.5 h-1 w-8 rounded bg-white transition-all duration-500 before:absolute before:h-1 before:w-8 before:-translate-x-4 before:-translate-y-3 before:rounded before:bg-white before:transition-all before:duration-500 before:content-[''] after:absolute after:h-1 after:w-8 after:-translate-x-4 after:translate-y-3 after:rounded after:bg-white after:transition-all after:duration-500 after:content-['']"></div>
+        </button>
+
+        <nav class="hidden md:block space-x-8 text-xl" aria-label="main">
+            {% for nav_info in nav_links %}
+                <a href="#{{ nav_info['anchor'] }}" class="hover:opacity-80">
+                    {{ nav_info['text'] }}
+                </a>
+            {% endfor %}
+        </nav>
+
+    </section>
+
+    <section id="mobile-menu" class="absolute top-68 bg-black w-full text-5xl flex-col justify-content-center origin-top animate-open-menu hidden">
+
+        <nav class="flex flex-col min-h-screen items-center py-8" aria-label="mobile">
+            <a href="#hero" class="width-full text-center py-6 hover:opacity-80">
+                Home
+            </a>
+            {% for nav_info in nav_links %}
+                <a href="#{{ nav_info['anchor'] }}" class="width-full text-center py-6 hover:opacity-80">
+                    {{ nav_info['text'] }}
+                </a>
+
+            {% endfor %}
+            <a href="#footer" class="width-full text-center py-6 hover:opacity-80">
+                Legal
+            </a>
+        </nav>
+
+    </section>
+
+    <script>
+        const initApp = () => {
+            const hamburgerBtn = document.getElementById('hamburger-button')
+            const mobileMenu = document.getElementById('mobile-menu')
+
+            const toggleMenu = () => {
+                mobileMenu.classList.toggle('hidden')
+                mobileMenu.classList.toggle('flex')
+                hamburgerBtn.classList.toggle('toggle-btn')
+            }
+
+            hamburgerBtn.addEventListener('click', toggleMenu)
+            mobileMenu.addEventListener('click', toggleMenu)
+        }
+
+        document.addEventListener('DOMContentLoaded', initApp)
+    </script>
+
+</header>
