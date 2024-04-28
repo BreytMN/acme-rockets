@@ -1,4 +1,4 @@
-from environment._base_paths import STATIC_ASSETS, STATIC_SRC
+from ._base_paths import STATIC_ASSETS, STATIC_SRC
 
 filename_input = "favicon.zip"
 folder_ouput = "favicon"

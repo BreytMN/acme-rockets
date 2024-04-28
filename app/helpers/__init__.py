@@ -4,16 +4,14 @@ import subprocess  # nosec
 from contextlib import asynccontextmanager
 from zipfile import ZipFile
 
-from environment import (
-    FAVICON_INPUT_PATH,
-    FAVICON_OUTPUT_FOLDER,
-    TAILWINDCSS_INPUT_PATH,
-    TAILWINDCSS_OUTPUT_PATH,
-)
 from fastapi import FastAPI
 
-DEPLOY_MODE = int(os.environ.get("STATIC_BUILD", 0))
-DYNAMIC_BUILD = not DEPLOY_MODE
+from ..environment import (
+    FAVICON_INPUT_APP_PATH,
+    FAVICON_OUTPUT_APP_FOLDER,
+    TAILWINDCSS_INPUT_APP_PATH,
+    TAILWINDCSS_OUTPUT_APP_PATH,
+)
 
 
 @asynccontextmanager
@@ -22,23 +20,21 @@ async def lifespan(app: FastAPI):
     Re-run the build and cleanup if not in deploy mode
     """
 
-    if DYNAMIC_BUILD:
-        build()
+    build()
 
     yield
 
-    if DYNAMIC_BUILD:
-        cleanup()
+    cleanup()
 
 
 def build():
-    _install_zip(FAVICON_INPUT_PATH, FAVICON_OUTPUT_FOLDER)
-    _build_tailwind(TAILWINDCSS_INPUT_PATH, TAILWINDCSS_OUTPUT_PATH)
+    _install_zip(FAVICON_INPUT_APP_PATH, FAVICON_OUTPUT_APP_FOLDER)
+    _build_tailwind(TAILWINDCSS_INPUT_APP_PATH, TAILWINDCSS_OUTPUT_APP_PATH)
 
 
 def cleanup():
-    shutil.rmtree(FAVICON_OUTPUT_FOLDER)
-    os.remove(TAILWINDCSS_OUTPUT_PATH)
+    shutil.rmtree(FAVICON_OUTPUT_APP_FOLDER)
+    os.remove(TAILWINDCSS_OUTPUT_APP_PATH)
 
 
 def _install_zip(input: os.PathLike, output: os.PathLike):
@@ -47,5 +43,5 @@ def _install_zip(input: os.PathLike, output: os.PathLike):
 
 
 def _build_tailwind(input: os.PathLike, output: os.PathLike):
-    command = ["tailwindcss", "-i", str(input), "-o", str(output), "--minify"]
+    command = ("tailwindcss", "-i", str(input), "-o", str(output), "--minify")
     subprocess.run(command)  # nosec

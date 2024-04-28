@@ -1,6 +1,5 @@
 from pathlib import Path
 
-# ***** paths
 STATIC_DIRECTORY_NAME = "static"
 TEMPLATES_DIRECTORY_NAME = "templates"
 

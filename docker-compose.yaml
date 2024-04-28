@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
 
-  fullstack-fastapi:
+  app:
     build: .
     restart: always
     ports:

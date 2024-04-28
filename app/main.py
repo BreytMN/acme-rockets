@@ -1,15 +1,25 @@
 from typing import Annotated, Any
 
-from __init__ import app_info
-from dependencies import dependencies
-from environment import STATIC_DIRECTORY_NAME, TEMPLATES_DIRECTORY_NAME, static_paths
 from fastapi import Depends, FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from helpers import lifespan
 
+from . import APP_INFO, SUBMODULE_PATH
+from .dependencies import dependencies, static_paths
+from .environment import (
+    DYNAMIC_BUILD,
+    STATIC_DIRECTORY_NAME,
+    STATIC_DIRECTORY_PATH,
+    TEMPLATES_DIRECTORY_PATH,
+)
+from .helpers import lifespan
+
+APP_CONFIG = {
+    **APP_INFO,
+    "lifespan": lifespan if DYNAMIC_BUILD else None,
+}
 CORS_CONFIG = {
     "allow_origins": ["*"],
     "allow_credentials": True,
@@ -18,10 +28,10 @@ CORS_CONFIG = {
 }
 
 
-app = FastAPI(**app_info, lifespan=lifespan)
+app = FastAPI(**APP_CONFIG)
 app.add_middleware(CORSMiddleware, **CORS_CONFIG)
-app.mount(f"/{STATIC_DIRECTORY_NAME}", StaticFiles(directory=STATIC_DIRECTORY_NAME))
-templates = Jinja2Templates(TEMPLATES_DIRECTORY_NAME)
+app.mount(f"/{STATIC_DIRECTORY_NAME}", StaticFiles(directory=STATIC_DIRECTORY_PATH))
+templates = Jinja2Templates(TEMPLATES_DIRECTORY_PATH)
 
 
 @app.get("/", response_class=HTMLResponse)
@@ -35,15 +45,18 @@ def landing_page(
     """
 
     context = {
-        "static": static_paths,
-        **app_info,
+        **APP_INFO,
         **dependencies,
+        "static": static_paths,
     }
 
     params = {
-        "request": request,
         "name": "index.html",
+        "request": request,
         "context": context,
     }
 
     return templates.TemplateResponse(**params)
+
+
+SUBMODULE_INFO = {"path": f"/{SUBMODULE_PATH}", "app": app}

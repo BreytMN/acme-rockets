@@ -1,4 +1,4 @@
-from environment._base_paths import STATIC_CSS, STATIC_SRC
+from ._base_paths import STATIC_CSS, STATIC_SRC
 
 filename_input = "input.css"
 filename_output = "output.css"

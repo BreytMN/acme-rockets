@@ -29,7 +29,7 @@ venv: ## Create virtual env
 
 server-venv: ## Start server with venv in watch mode - any change in *.py and *.html files will trigger server reload
 	@. .venv/bin/activate; \
-	cd app && uvicorn main:app --reload --reload-include *.html;
+	uvicorn app.main:app --reload --reload-include *.html;
 
 server-docker: ## Start server with docker
 	@docker rm -f $(PROJECT) || true; \

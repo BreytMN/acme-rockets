@@ -20,8 +20,10 @@ def temp_paths(tmp_path):
 
 
 def test_build(temp_paths):
-    with patch("app.helpers.FAVICON_OUTPUT_FOLDER", temp_paths["favicon_folder"]):
-        with patch("app.helpers.TAILWINDCSS_OUTPUT_PATH", temp_paths["tailwind_file"]):
+    with patch("app.helpers.FAVICON_OUTPUT_APP_FOLDER", temp_paths["favicon_folder"]):
+        with patch(
+            "app.helpers.TAILWINDCSS_OUTPUT_APP_PATH", temp_paths["tailwind_file"]
+        ):
             build()
 
     for f in temp_paths.values():
@@ -32,8 +34,10 @@ def test_cleanup(temp_paths):
     with open(temp_paths["tailwind_file"], "w") as f:
         f.write("something")
 
-    with patch("app.helpers.FAVICON_OUTPUT_FOLDER", temp_paths["favicon_folder"]):
-        with patch("app.helpers.TAILWINDCSS_OUTPUT_PATH", temp_paths["tailwind_file"]):
+    with patch("app.helpers.FAVICON_OUTPUT_APP_FOLDER", temp_paths["favicon_folder"]):
+        with patch(
+            "app.helpers.TAILWINDCSS_OUTPUT_APP_PATH", temp_paths["tailwind_file"]
+        ):
             cleanup()
 
     for f in temp_paths.values():
