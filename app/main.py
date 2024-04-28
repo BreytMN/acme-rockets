@@ -6,7 +6,7 @@ from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
-from . import APP_INFO, SUBMODULE_PATH
+from . import APP_INFO
 from .dependencies import dependencies, static_paths
 from .environment import (
     DYNAMIC_BUILD,
@@ -57,6 +57,3 @@ def landing_page(
     }
 
     return templates.TemplateResponse(**params)
-
-
-SUBMODULE_INFO = {"path": f"/{SUBMODULE_PATH}", "app": app}
