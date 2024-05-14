@@ -1,6 +1,6 @@
 import os
 
-__version__ = "1.1.1"
+__version__ = "1.1.2"
 title = "Acme Rockets"
 
 APP_INFO = {
@@ -10,4 +10,5 @@ APP_INFO = {
 }
 
 IS_SUBMODULE = int(os.environ.get("SUBMODULES", 0))
-SUBMODULE_PATH = "acme_rockets"
+SUBMODULE_NAME = "acme_rockets"
+SUBMODULE_PATH = f"modules/{SUBMODULE_NAME}"

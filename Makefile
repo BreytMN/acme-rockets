@@ -35,6 +35,8 @@ server-docker: ## Start server with docker
 	@docker rm -f $(PROJECT) || true; \
 	docker compose up --build;
 
+server: server-venv
+
 test: ## Run unit tests
 	@. .venv/bin/activate; \
 	clear && python -m pytest \

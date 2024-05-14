@@ -3,7 +3,7 @@ import os
 import pathlib
 from typing import Any, TypeAlias, Union
 
-from . import IS_SUBMODULE, SUBMODULE_PATH
+from . import IS_SUBMODULE, SUBMODULE_NAME, SUBMODULE_PATH
 from .environment import (
     FAVICON_OUTPUT_FOLDER,
     STATIC_DIRECTORY_NAME,
@@ -75,7 +75,7 @@ def _read_jsonlines(path: os.PathLike) -> jsonl:
 def _fix_static_path(
     line: str,
     static_folder: str = STATIC_DIRECTORY_NAME,
-    submodule_path: str = SUBMODULE_PATH,
+    submodule_name: str = SUBMODULE_NAME,
 ) -> str:
     """
     Add submodule prefix to the path
@@ -83,5 +83,5 @@ def _fix_static_path(
 
     return line.replace(
         f"/{static_folder}/",
-        f"/{submodule_path}/{static_folder}/",
+        f"/{submodule_name}/{static_folder}/",
     )

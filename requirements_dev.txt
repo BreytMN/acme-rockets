@@ -1,4 +1,4 @@
 mypy==1.10.0
-pre-commit==3.7.0
-ruff==0.4.2
+pre-commit==3.7.1
+ruff==0.4.4
 watchfiles==0.21.0

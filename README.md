@@ -14,8 +14,15 @@ The resulting page works both on desktop and mobile browsers.
 ## Summary
 * [Using this repo](#using-this-repo)
 * [To do](#to-do)
-* [Author links](#author-links)
 * [License](#licence)
+
+### About me
+
+#### Links
+* [E-mail](mailto:lunde@adobe.com)
+* [GitHub](https://github.com/BreytMN)
+* [LinkedIn](https://www.linkedin.com/in/breytner-nascimento/)
+* [Portfolio](https://portfolio.breytmn.com)
 
 
 ## Using this repo
@@ -28,17 +35,17 @@ This repository is written using WSL with an Ubuntu distro running Python `3.12`
 
 For [deployment](requirements.txt):
 ```txt
-fastapi==0.110.2
-jinja2==3.1.3
+fastapi==0.111.0
+jinja2==3.1.4
 pytailwindcss==0.2.0
-uvicorn[standard]==0.29.0
+uvicorn==0.29.0
 ```
 
 For [development](requirements_dev.txt):
 ```
 mypy==1.10.0
-pre-commit==3.7.0
-ruff==0.4.2
+pre-commit==3.7.1
+ruff==0.4.4
 watchfiles==0.21.0
 ```
 
@@ -84,7 +91,7 @@ The output of the test with code coverage report will be displayed in the termin
 
 To start the server:
 ```bash
-make server-venv
+make server
 ```
 You can see the page on the browser through the link http://127.0.0.1:8000/
 
@@ -98,9 +105,6 @@ make server-docker
  * Make the "Contact Us" section actually send a post request to the server;
  * Look up for better ways to extract the components and partials from the html to avoid repetition even where it makes sense.
 
-## Author Links
-* [LinkedIn](https://www.linkedin.com/in/breytner-nascimento/)
-* [Portfolio](https://portfolio.breytmn.com)
 
 ## Licence
 [MIT License](LICENSE)
